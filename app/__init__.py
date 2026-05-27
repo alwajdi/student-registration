@@ -11,11 +11,15 @@ from .main.routes import main_bp
 from .models import User
 from .student.routes import student_bp
 
+from werkzeug.middleware.proxy_fix import ProxyFix
+
 
 def create_app(config_class=Config) -> Flask:
     app = Flask(__name__, instance_relative_config=True)
     app.config.from_object(config_class)
 
+    app.wsgi_app = ProxyFix(app.wsgi_app, x_prefix=1, x_host=1)
+    
     Path(app.instance_path).mkdir(parents=True, exist_ok=True)
     INSTANCE_DIR.mkdir(parents=True, exist_ok=True)
     UPLOAD_DIR.mkdir(parents=True, exist_ok=True)
