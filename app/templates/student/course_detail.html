@@ -1,0 +1,24 @@
+{% extends "base.html" %}
+
+{% block title %}Course Classmates{% endblock %}
+
+{% block content %}
+<section class="page-header">
+    <div>
+        <p class="eyebrow">Approved Course</p>
+        <h1>{{ enrollment.course.name }}</h1>
+        <p class="section-copy">Scheduled for {{ enrollment.course.course_date.strftime("%B %d, %Y") }}</p>
+    </div>
+</section>
+
+<section class="panel">
+    <h2>Other students in this course</h2>
+    <div class="roster-list">
+        {% for classmate in classmates %}
+        <div class="roster-item">{{ classmate.student.full_name }}</div>
+        {% else %}
+        <p class="meta">No other approved students are visible yet.</p>
+        {% endfor %}
+    </div>
+</section>
+{% endblock %}

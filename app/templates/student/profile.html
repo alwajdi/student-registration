@@ -1,0 +1,31 @@
+{% extends "base.html" %}
+
+{% block title %}My Profile{% endblock %}
+
+{% block content %}
+<section class="page-header">
+    <div>
+        <p class="eyebrow">Student</p>
+        <h1>My Profile</h1>
+    </div>
+</section>
+
+<section class="stats-grid profile-grid">
+    <div class="stat-card">
+        <span class="stat-label">Student name</span>
+        <strong>{{ student.full_name }}</strong>
+    </div>
+    <div class="stat-card">
+        <span class="stat-label">Email</span>
+        <strong>{{ student.email }}</strong>
+    </div>
+    <div class="stat-card">
+        <span class="stat-label">Contact number</span>
+        <strong>{{ student.contact_number }}</strong>
+    </div>
+    <div class="stat-card">
+        <span class="stat-label">Address</span>
+        <strong>{{ student.address }}</strong>
+    </div>
+</section>
+{% endblock %}

@@ -1,0 +1,38 @@
+{% extends "base.html" %}
+
+{% block title %}Available Courses{% endblock %}
+
+{% block content %}
+<section class="page-header">
+    <div>
+        <p class="eyebrow">Student</p>
+        <h1>Available Courses</h1>
+        <p class="section-copy">Only courses currently open for enrollment are shown here.</p>
+    </div>
+</section>
+
+{% if courses %}
+<section class="card-grid">
+    {% for course in courses %}
+    <article class="panel course-card">
+        <p class="meta">{{ course.course_date.strftime("%B %d, %Y") }}</p>
+        <h2>{{ course.name }}</h2>
+        {% set status = enrollment_map.get(course.id) %}
+        {% if status %}
+            <p><span class="badge badge-{{ status }}">{{ status|title }}</span></p>
+        {% else %}
+            <form method="post" action="{{ url_for('student.enroll', course_id=course.id) }}">
+                <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+                <button class="button primary" type="submit">Request enrollment</button>
+            </form>
+        {% endif %}
+    </article>
+    {% endfor %}
+</section>
+{% else %}
+<section class="empty-state">
+    <h2>No open courses</h2>
+    <p>The academy has not published any currently available courses.</p>
+</section>
+{% endif %}
+{% endblock %}

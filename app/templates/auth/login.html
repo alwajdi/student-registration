@@ -1,0 +1,38 @@
+{% extends "base.html" %}
+
+{% block title %}Login | Academy Portal{% endblock %}
+
+{% block public_content %}
+<section class="login-page">
+    <div class="login-panel hero-panel">
+        <p class="eyebrow">Professional Academy</p>
+        <h1>Secure access for academic operations.</h1>
+        <p class="hero-copy">
+            Review announcements, manage courses, and track enrollment activity through a clean, role-based portal.
+        </p>
+        <ul class="hero-list">
+            <li>Announcements-led dashboard after sign in</li>
+            <li>Structured course enrollment and approvals</li>
+            <li>Professional academy records for students and staff</li>
+        </ul>
+    </div>
+    <div class="login-panel form-panel">
+        <h2>Login</h2>
+        <form method="post" class="form-grid">
+            {{ form.hidden_tag() }}
+            <div class="field">
+                {{ form.username.label }}
+                {{ form.username(class_="input") }}
+                {% for error in form.username.errors %}<p class="field-error">{{ error }}</p>{% endfor %}
+            </div>
+            <div class="field">
+                {{ form.password.label }}
+                {{ form.password(class_="input") }}
+                {% for error in form.password.errors %}<p class="field-error">{{ error }}</p>{% endfor %}
+            </div>
+            <label class="checkbox-row">{{ form.remember_me() }} <span>{{ form.remember_me.label.text }}</span></label>
+            {{ form.submit(class_="button primary full") }}
+        </form>
+    </div>
+</section>
+{% endblock %}

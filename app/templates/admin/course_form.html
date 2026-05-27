@@ -1,0 +1,30 @@
+{% extends "base.html" %}
+
+{% block title %}Create Course{% endblock %}
+
+{% block content %}
+<section class="page-header">
+    <div>
+        <p class="eyebrow">Admin</p>
+        <h1>Create Course</h1>
+    </div>
+</section>
+
+<section class="panel form-panel-wide">
+    <form method="post" class="form-grid">
+        {{ form.hidden_tag() }}
+        <div class="field">
+            {{ form.name.label }}
+            {{ form.name(class_="input") }}
+            {% for error in form.name.errors %}<p class="field-error">{{ error }}</p>{% endfor %}
+        </div>
+        <div class="field">
+            {{ form.course_date.label }}
+            {{ form.course_date(class_="input") }}
+            {% for error in form.course_date.errors %}<p class="field-error">{{ error }}</p>{% endfor %}
+        </div>
+        <label class="checkbox-row">{{ form.is_available() }} <span>{{ form.is_available.label.text }}</span></label>
+        {{ form.submit(class_="button primary") }}
+    </form>
+</section>
+{% endblock %}

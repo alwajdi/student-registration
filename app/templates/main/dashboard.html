@@ -1,0 +1,43 @@
+{% extends "base.html" %}
+
+{% block title %}Announcements | Academy Portal{% endblock %}
+
+{% block content %}
+<section class="page-header">
+    <div>
+        <p class="eyebrow">Dashboard</p>
+        <h1>Announcements</h1>
+        <p class="section-copy">This is the first page after login so academy notices remain visible to every user.</p>
+    </div>
+    {% if current_user.role == 'admin' %}
+    <a href="{{ url_for('admin.announcement_create') }}" class="button primary">New announcement</a>
+    {% endif %}
+</section>
+
+{% if announcements %}
+<section class="announcement-grid">
+    {% for announcement in announcements %}
+    <article class="announcement-card">
+        {% if announcement.image_path %}
+        <img
+            class="announcement-image"
+            src="{{ url_for('main.announcement_media', filename=announcement.image_path) }}"
+            alt="Announcement image for {{ announcement.title }}"
+        >
+        {% endif %}
+        <div class="announcement-body">
+            <p class="meta">{{ announcement.published_at.strftime("%B %d, %Y") }}</p>
+            <h2>{{ announcement.title }}</h2>
+            <p>{{ announcement.content }}</p>
+            <p class="meta">Published by {{ announcement.created_by.username }}</p>
+        </div>
+    </article>
+    {% endfor %}
+</section>
+{% else %}
+<section class="empty-state">
+    <h2>No announcements yet</h2>
+    <p>The academy bulletin is currently empty.</p>
+</section>
+{% endif %}
+{% endblock %}

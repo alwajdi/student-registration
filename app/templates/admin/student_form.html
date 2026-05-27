@@ -1,0 +1,56 @@
+{% extends "base.html" %}
+
+{% block title %}Create Student Account{% endblock %}
+
+{% block content %}
+<section class="page-header">
+    <div>
+        <p class="eyebrow">Admin</p>
+        <h1>Create Student Account</h1>
+    </div>
+</section>
+
+<section class="panel form-panel-wide">
+    <form method="post" class="form-grid two-column">
+        {{ form.hidden_tag() }}
+        <div class="field">
+            {{ form.username.label }}
+            {{ form.username(class_="input") }}
+            {% for error in form.username.errors %}<p class="field-error">{{ error }}</p>{% endfor %}
+        </div>
+        <div class="field">
+            {{ form.full_name.label }}
+            {{ form.full_name(class_="input") }}
+            {% for error in form.full_name.errors %}<p class="field-error">{{ error }}</p>{% endfor %}
+        </div>
+        <div class="field">
+            {{ form.password.label }}
+            {{ form.password(class_="input") }}
+            {% for error in form.password.errors %}<p class="field-error">{{ error }}</p>{% endfor %}
+        </div>
+        <div class="field">
+            {{ form.confirm_password.label }}
+            {{ form.confirm_password(class_="input") }}
+            {% for error in form.confirm_password.errors %}<p class="field-error">{{ error }}</p>{% endfor %}
+        </div>
+        <div class="field">
+            {{ form.email.label }}
+            {{ form.email(class_="input") }}
+            {% for error in form.email.errors %}<p class="field-error">{{ error }}</p>{% endfor %}
+        </div>
+        <div class="field">
+            {{ form.contact_number.label }}
+            {{ form.contact_number(class_="input") }}
+            {% for error in form.contact_number.errors %}<p class="field-error">{{ error }}</p>{% endfor %}
+        </div>
+        <div class="field field-span">
+            {{ form.address.label }}
+            {{ form.address(class_="input") }}
+            {% for error in form.address.errors %}<p class="field-error">{{ error }}</p>{% endfor %}
+        </div>
+        <div class="field field-span">
+            {{ form.submit(class_="button primary") }}
+        </div>
+    </form>
+</section>
+{% endblock %}

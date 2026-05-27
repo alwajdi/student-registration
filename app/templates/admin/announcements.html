@@ -1,0 +1,40 @@
+{% extends "base.html" %}
+
+{% block title %}Manage Announcements{% endblock %}
+
+{% block content %}
+<section class="page-header">
+    <div>
+        <p class="eyebrow">Admin</p>
+        <h1>Manage Announcements</h1>
+    </div>
+    <a href="{{ url_for('admin.announcement_create') }}" class="button primary">Create announcement</a>
+</section>
+
+<section class="panel">
+    <div class="table-wrap">
+        <table class="data-table">
+            <thead>
+                <tr>
+                    <th>Title</th>
+                    <th>Date</th>
+                    <th>Image</th>
+                    <th>Created by</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for announcement in announcements %}
+                <tr>
+                    <td>{{ announcement.title }}</td>
+                    <td>{{ announcement.published_at.strftime("%Y-%m-%d") }}</td>
+                    <td>{{ "Yes" if announcement.image_path else "No" }}</td>
+                    <td>{{ announcement.created_by.username }}</td>
+                </tr>
+                {% else %}
+                <tr><td colspan="4">No announcements available.</td></tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</section>
+{% endblock %}

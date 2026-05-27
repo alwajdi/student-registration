@@ -1,0 +1,46 @@
+{% extends "base.html" %}
+
+{% block title %}Course Detail{% endblock %}
+
+{% block content %}
+<section class="page-header">
+    <div>
+        <p class="eyebrow">Course</p>
+        <h1>{{ course.name }}</h1>
+        <p class="section-copy">Scheduled for {{ course.course_date.strftime("%B %d, %Y") }}</p>
+    </div>
+</section>
+
+<section class="stats-grid">
+    <div class="stat-card"><span class="stat-label">Availability</span><strong>{{ "Open" if course.is_open_for_students else "Closed" }}</strong></div>
+    <div class="stat-card"><span class="stat-label">Total requests</span><strong>{{ enrollments|length }}</strong></div>
+    <div class="stat-card"><span class="stat-label">Approved</span><strong>{{ enrollments | selectattr("status", "equalto", "approved") | list | length }}</strong></div>
+</section>
+
+<section class="panel">
+    <div class="table-wrap">
+        <table class="data-table">
+            <thead>
+                <tr>
+                    <th>Student</th>
+                    <th>Email</th>
+                    <th>Contact</th>
+                    <th>Status</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for enrollment in enrollments %}
+                <tr>
+                    <td>{{ enrollment.student.full_name }}</td>
+                    <td>{{ enrollment.student.email }}</td>
+                    <td>{{ enrollment.student.contact_number }}</td>
+                    <td><span class="badge badge-{{ enrollment.status }}">{{ enrollment.status|title }}</span></td>
+                </tr>
+                {% else %}
+                <tr><td colspan="4">No students in this course yet.</td></tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</section>
+{% endblock %}

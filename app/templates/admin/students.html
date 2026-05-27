@@ -1,0 +1,40 @@
+{% extends "base.html" %}
+
+{% block title %}Students{% endblock %}
+
+{% block content %}
+<section class="page-header">
+    <div>
+        <p class="eyebrow">Admin</p>
+        <h1>Students</h1>
+    </div>
+    <a href="{{ url_for('admin.student_create') }}" class="button primary">Create student account</a>
+</section>
+
+<section class="panel">
+    <div class="table-wrap">
+        <table class="data-table">
+            <thead>
+                <tr>
+                    <th>Student name</th>
+                    <th>Address</th>
+                    <th>Email</th>
+                    <th>Contact number</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for student in students %}
+                <tr>
+                    <td>{{ student.full_name }}</td>
+                    <td>{{ student.address }}</td>
+                    <td>{{ student.email }}</td>
+                    <td>{{ student.contact_number }}</td>
+                </tr>
+                {% else %}
+                <tr><td colspan="4">No students available.</td></tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</section>
+{% endblock %}
