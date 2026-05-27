@@ -70,7 +70,7 @@ Python and SQLite web application for a professional academy with:
 7. Open the app in your browser:
 
    ```text
-   http://127.0.0.1:5000
+   http://127.0.0.1:5000/demo
    ```
 
 ## Demo Accounts
@@ -89,7 +89,32 @@ Python and SQLite web application for a professional academy with:
 - Announcement uploads: `instance/uploads/announcements/`
 - The database is created automatically on first run
 - If demo data already exists, the seed command will not create duplicates
+- The app is configured to run under the `/demo` URL prefix
 - Change `SECRET_KEY` in [config.py](/workspace/student-registration/config.py) before using the app outside local development
+
+## Deploying Under `/demo`
+
+The app now supports the `/demo` base path in two ways:
+
+- direct local access at `http://127.0.0.1:5000/demo`
+- reverse-proxy deployments that forward `X-Forwarded-Prefix: /demo`
+
+### Nginx example
+
+```nginx
+location /demo/ {
+    proxy_pass http://127.0.0.1:5000/;
+    proxy_set_header Host $host;
+    proxy_set_header X-Forwarded-Host $host;
+    proxy_set_header X-Forwarded-Proto $scheme;
+    proxy_set_header X-Forwarded-Prefix /demo;
+}
+```
+
+### Apache note
+
+Mount the WSGI app at `/demo` and preserve the forwarded host and prefix so
+Flask generates links correctly.
 
 ## Useful Commands
 
