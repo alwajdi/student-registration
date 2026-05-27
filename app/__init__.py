@@ -22,7 +22,9 @@ class PrefixMiddleware:
         script_name = forwarded_prefix or self.prefix
         path_info = environ.get("PATH_INFO", "")
 
-        if script_name and path_info.startswith(script_name):
+        prefix_matches = path_info == script_name or path_info.startswith(f"{script_name}/")
+
+        if script_name and prefix_matches:
             environ["SCRIPT_NAME"] = script_name
             environ["PATH_INFO"] = path_info[len(script_name):] or "/"
         elif forwarded_prefix:
